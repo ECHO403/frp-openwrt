@@ -47,9 +47,9 @@ jobs:
           # IPK: compatible with OpenWrt R22.4.1 GDQ Spring [2022]
           # by eSir / LuCI Master (git-22.103.65959-d9db1b0)
           - pkg_ext: "ipk"
-            sdk_ver: "r22.4.1-gdq-spring-2022"
+            sdk_ver: "22.03.2"
             luci_ver: "git-22.103.65959-d9db1b0"
-            sdk_url: "https://downloads.openwrt.org/releases/22.03.0-rc1/targets/x86/64/openwrt-sdk-22.03.0-rc1-x86-64_gcc-11.2.0_musl.Linux-x86_64.tar.xz"
+            sdk_base_url: "https://archive.openwrt.org/releases/22.03.2/targets/x86/64"
 
     steps:
       - name: Checkout repository
@@ -83,14 +83,23 @@ jobs:
         run: |
           mkdir -p cache-sdk
           cd cache-sdk
-          wget "${{ matrix.sdk_url }}"
+          sdk_file="$(wget -qO- "${{ matrix.sdk_base_url }}/" | grep -oE 'openwrt-sdk-[^" ]+Linux-x86_64\.tar\.(xz|zst)' | head -n1)"
+          if [ -z "$sdk_file" ]; then
+            echo "Unable to resolve SDK filename from ${{ matrix.sdk_base_url }}/" >&2
+            exit 1
+          fi
+          wget "${{ matrix.sdk_base_url }}/$sdk_file"
           cd ..
 
       - name: Extract SDK
         run: |
           rm -rf "$SDK_DIR"
           mkdir -p "$SDK_DIR"
-          file_name=$(basename "${{ matrix.sdk_url }}")
+          file_name="$(find "$GITHUB_WORKSPACE/cache-sdk" -maxdepth 1 -type f \( -name 'openwrt-sdk-*.tar.xz' -o -name 'openwrt-sdk-*.tar.zst' \) -print | head -n1 | xargs basename)"
+          if [ -z "$file_name" ]; then
+            echo "SDK tarball not found in cache-sdk" >&2
+            exit 1
+          fi
           tarball_path="$GITHUB_WORKSPACE/cache-sdk/$file_name"
           if [[ "$file_name" == *.zst ]]; then
             tar --zstd -xf "$tarball_path" -C "$SDK_DIR" --strip-components=1
@@ -205,68 +214,68 @@ jobs:
           # --------------------------------------------
           - pkg_ext: "ipk"
             platform: amd64
-            sdk_ver: "r22.4.1-gdq-spring-2022"
-            sdk_url: "https://downloads.openwrt.org/releases/22.03.0-rc1/targets/x86/64/openwrt-sdk-22.03.0-rc1-x86-64_gcc-11.2.0_musl.Linux-x86_64.tar.xz"
+            sdk_ver: "22.03.2"
+            sdk_base_url: "https://archive.openwrt.org/releases/22.03.2/targets/x86/64"
           - pkg_ext: "ipk"
             platform: aarch64_generic
-            sdk_ver: "r22.4.1-gdq-spring-2022"
-            sdk_url: "https://downloads.openwrt.org/releases/22.03.0-rc1/targets/rockchip/armv8/openwrt-sdk-22.03.0-rc1-rockchip-armv8_gcc-11.2.0_musl.Linux-x86_64.tar.xz"
+            sdk_ver: "22.03.2"
+            sdk_base_url: "https://archive.openwrt.org/releases/22.03.2/targets/rockchip/armv8"
           - pkg_ext: "ipk"
             platform: aarch64_cortex-a53
-            sdk_ver: "r22.4.1-gdq-spring-2022"
-            sdk_url: "https://downloads.openwrt.org/releases/22.03.0-rc1/targets/mvebu/cortexa53/openwrt-sdk-22.03.0-rc1-mvebu-cortexa53_gcc-11.2.0_musl.Linux-x86_64.tar.xz"
+            sdk_ver: "22.03.2"
+            sdk_base_url: "https://archive.openwrt.org/releases/22.03.2/targets/mvebu/cortexa53"
           - pkg_ext: "ipk"
             platform: aarch64_cortex-a72
-            sdk_ver: "r22.4.1-gdq-spring-2022"
-            sdk_url: "https://downloads.openwrt.org/releases/22.03.0-rc1/targets/mvebu/cortexa72/openwrt-sdk-22.03.0-rc1-mvebu-cortexa72_gcc-11.2.0_musl.Linux-x86_64.tar.xz"
+            sdk_ver: "22.03.2"
+            sdk_base_url: "https://archive.openwrt.org/releases/22.03.2/targets/mvebu/cortexa72"
           - pkg_ext: "ipk"
             platform: arm_cortex-a5_vfpv4
-            sdk_ver: "r22.4.1-gdq-spring-2022"
-            sdk_url: "https://downloads.openwrt.org/releases/22.03.0-rc1/targets/at91/sama5/openwrt-sdk-22.03.0-rc1-at91-sama5_gcc-11.2.0_musl_eabi.Linux-x86_64.tar.xz"
+            sdk_ver: "22.03.2"
+            sdk_base_url: "https://archive.openwrt.org/releases/22.03.2/targets/at91/sama5"
           - pkg_ext: "ipk"
             platform: arm_cortex-a7
-            sdk_ver: "r22.4.1-gdq-spring-2022"
-            sdk_url: "https://downloads.openwrt.org/releases/22.03.0-rc1/targets/mediatek/mt7629/openwrt-sdk-22.03.0-rc1-mediatek-mt7629_gcc-11.2.0_musl_eabi.Linux-x86_64.tar.xz"
+            sdk_ver: "22.03.2"
+            sdk_base_url: "https://archive.openwrt.org/releases/22.03.2/targets/mediatek/mt7629"
           - pkg_ext: "ipk"
             platform: arm_cortex-a7_neon-vfpv4
-            sdk_ver: "r22.4.1-gdq-spring-2022"
-            sdk_url: "https://downloads.openwrt.org/releases/22.03.0-rc1/targets/sunxi/cortexa7/openwrt-sdk-22.03.0-rc1-sunxi-cortexa7_gcc-11.2.0_musl_eabi.Linux-x86_64.tar.xz"
+            sdk_ver: "22.03.2"
+            sdk_base_url: "https://archive.openwrt.org/releases/22.03.2/targets/sunxi/cortexa7"
           - pkg_ext: "ipk"
             platform: arm_cortex-a8_vfpv3
-            sdk_ver: "r22.4.1-gdq-spring-2022"
-            sdk_url: "https://downloads.openwrt.org/releases/22.03.0-rc1/targets/sunxi/cortexa8/openwrt-sdk-22.03.0-rc1-sunxi-cortexa8_gcc-11.2.0_musl_eabi.Linux-x86_64.tar.xz"
+            sdk_ver: "22.03.2"
+            sdk_base_url: "https://archive.openwrt.org/releases/22.03.2/targets/sunxi/cortexa8"
           - pkg_ext: "ipk"
             platform: arm_cortex-a9
-            sdk_ver: "r22.4.1-gdq-spring-2022"
-            sdk_url: "https://downloads.openwrt.org/releases/22.03.0-rc1/targets/bcm53xx/generic/openwrt-sdk-22.03.0-rc1-bcm53xx-generic_gcc-11.2.0_musl_eabi.Linux-x86_64.tar.xz"
+            sdk_ver: "22.03.2"
+            sdk_base_url: "https://archive.openwrt.org/releases/22.03.2/targets/bcm53xx/generic"
           - pkg_ext: "ipk"
             platform: arm_cortex-a9_neon
-            sdk_ver: "r22.4.1-gdq-spring-2022"
-            sdk_url: "https://downloads.openwrt.org/releases/22.03.0-rc1/targets/zynq/generic/openwrt-sdk-22.03.0-rc1-zynq-generic_gcc-11.2.0_musl_eabi.Linux-x86_64.tar.xz"
+            sdk_ver: "22.03.2"
+            sdk_base_url: "https://archive.openwrt.org/releases/22.03.2/targets/zynq/generic"
           - pkg_ext: "ipk"
             platform: arm_cortex-a9_vfpv3-d16
-            sdk_ver: "r22.4.1-gdq-spring-2022"
-            sdk_url: "https://downloads.openwrt.org/releases/22.03.0-rc1/targets/mvebu/cortexa9/openwrt-sdk-22.03.0-rc1-mvebu-cortexa9_gcc-11.2.0_musl_eabi.Linux-x86_64.tar.xz"
+            sdk_ver: "22.03.2"
+            sdk_base_url: "https://archive.openwrt.org/releases/22.03.2/targets/mvebu/cortexa9"
           - pkg_ext: "ipk"
             platform: arm_cortex-a15_neon-vfpv4
-            sdk_ver: "r22.4.1-gdq-spring-2022"
-            sdk_url: "https://downloads.openwrt.org/releases/22.03.0-rc1/targets/ipq806x/generic/openwrt-sdk-22.03.0-rc1-ipq806x-generic_gcc-11.2.0_musl_eabi.Linux-x86_64.tar.xz"
+            sdk_ver: "22.03.2"
+            sdk_base_url: "https://archive.openwrt.org/releases/22.03.2/targets/ipq806x/generic"
           - pkg_ext: "ipk"
             platform: mips_mips32
-            sdk_ver: "r22.4.1-gdq-spring-2022"
-            sdk_url: "https://downloads.openwrt.org/releases/22.03.0-rc1/targets/bcm53xx/generic/openwrt-sdk-22.03.0-rc1-bcm53xx-generic_gcc-11.2.0_musl_eabi.Linux-x86_64.tar.xz"
+            sdk_ver: "22.03.2"
+            sdk_base_url: "https://archive.openwrt.org/releases/22.03.2/targets/bcm53xx/generic"
           - pkg_ext: "ipk"
             platform: mipsel_24kc
-            sdk_ver: "r22.4.1-gdq-spring-2022"
-            sdk_url: "https://downloads.openwrt.org/releases/22.03.0-rc1/targets/ramips/rt288x/openwrt-sdk-22.03.0-rc1-ramips-rt288x_gcc-11.2.0_musl.Linux-x86_64.tar.xz"
+            sdk_ver: "22.03.2"
+            sdk_base_url: "https://archive.openwrt.org/releases/22.03.2/targets/ramips/rt288x"
           - pkg_ext: "ipk"
             platform: mipsel_74kc
-            sdk_ver: "r22.4.1-gdq-spring-2022"
-            sdk_url: "https://downloads.openwrt.org/releases/22.03.0-rc1/targets/ramips/rt3883/openwrt-sdk-22.03.0-rc1-ramips-rt3883_gcc-11.2.0_musl.Linux-x86_64.tar.xz"
+            sdk_ver: "22.03.2"
+            sdk_base_url: "https://archive.openwrt.org/releases/22.03.2/targets/ramips/rt3883"
           - pkg_ext: "ipk"
             platform: mipsel_mips32
-            sdk_ver: "r22.4.1-gdq-spring-2022"
-            sdk_url: "https://downloads.openwrt.org/releases/22.03.0-rc1/targets/bcm47xx/generic/openwrt-sdk-22.03.0-rc1-bcm47xx-generic_gcc-11.2.0_musl.Linux-x86_64.tar.xz"
+            sdk_ver: "22.03.2"
+            sdk_base_url: "https://archive.openwrt.org/releases/22.03.2/targets/bcm47xx/generic"
 
     steps:
       - name: Checkout repository
@@ -300,14 +309,23 @@ jobs:
         run: |
           mkdir -p cache-sdk
           cd cache-sdk
-          wget "${{ matrix.sdk_url }}"
+          sdk_file="$(wget -qO- "${{ matrix.sdk_base_url }}/" | grep -oE 'openwrt-sdk-[^" ]+Linux-x86_64\.tar\.(xz|zst)' | head -n1)"
+          if [ -z "$sdk_file" ]; then
+            echo "Unable to resolve SDK filename from ${{ matrix.sdk_base_url }}/" >&2
+            exit 1
+          fi
+          wget "${{ matrix.sdk_base_url }}/$sdk_file"
           cd ..
 
       - name: Extract SDK
         run: |
           rm -rf "$SDK_DIR"
           mkdir -p "$SDK_DIR"
-          file_name=$(basename "${{ matrix.sdk_url }}")
+          file_name="$(find "$GITHUB_WORKSPACE/cache-sdk" -maxdepth 1 -type f \( -name 'openwrt-sdk-*.tar.xz' -o -name 'openwrt-sdk-*.tar.zst' \) -print | head -n1 | xargs basename)"
+          if [ -z "$file_name" ]; then
+            echo "SDK tarball not found in cache-sdk" >&2
+            exit 1
+          fi
           tarball_path="$GITHUB_WORKSPACE/cache-sdk/$file_name"
           if [[ "$file_name" == *.zst ]]; then
             tar --zstd -xf "$tarball_path" -C "$SDK_DIR" --strip-components=1
