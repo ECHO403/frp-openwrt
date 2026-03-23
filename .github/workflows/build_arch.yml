@@ -38,20 +38,20 @@ jobs:
         run: |
           case "${{ inputs.arch }}" in
             amd64)
-              echo "SDK_VER=22.03.2" >> "$GITHUB_ENV"
-              echo "SDK_BASE_URL=https://archive.openwrt.org/releases/22.03.2/targets/x86/64" >> "$GITHUB_ENV"
+              echo "SDK_VER=22.03.0" >> "$GITHUB_ENV"
+              echo "SDK_BASE_URL=https://archive.openwrt.org/releases/22.03.0/targets/x86/64" >> "$GITHUB_ENV"
               ;;
             aarch64_generic)
-              echo "SDK_VER=22.03.2" >> "$GITHUB_ENV"
-              echo "SDK_BASE_URL=https://archive.openwrt.org/releases/22.03.2/targets/rockchip/armv8" >> "$GITHUB_ENV"
+              echo "SDK_VER=22.03.0" >> "$GITHUB_ENV"
+              echo "SDK_BASE_URL=https://archive.openwrt.org/releases/22.03.0/targets/rockchip/armv8" >> "$GITHUB_ENV"
               ;;
             aarch64_cortex-a53)
-              echo "SDK_VER=22.03.2" >> "$GITHUB_ENV"
-              echo "SDK_BASE_URL=https://archive.openwrt.org/releases/22.03.2/targets/mvebu/cortexa53" >> "$GITHUB_ENV"
+              echo "SDK_VER=22.03.0" >> "$GITHUB_ENV"
+              echo "SDK_BASE_URL=https://archive.openwrt.org/releases/22.03.0/targets/mvebu/cortexa53" >> "$GITHUB_ENV"
               ;;
             aarch64_cortex-a72)
-              echo "SDK_VER=22.03.2" >> "$GITHUB_ENV"
-              echo "SDK_BASE_URL=https://archive.openwrt.org/releases/22.03.2/targets/mvebu/cortexa72" >> "$GITHUB_ENV"
+              echo "SDK_VER=22.03.0" >> "$GITHUB_ENV"
+              echo "SDK_BASE_URL=https://archive.openwrt.org/releases/22.03.0/targets/mvebu/cortexa72" >> "$GITHUB_ENV"
               ;;
             *)
               echo "Unsupported arch: ${{ inputs.arch }}" >&2

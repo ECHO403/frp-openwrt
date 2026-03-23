@@ -47,9 +47,9 @@ jobs:
           # IPK: compatible with OpenWrt R22.4.1 GDQ Spring [2022]
           # by eSir / LuCI Master (git-22.103.65959-d9db1b0)
           - pkg_ext: "ipk"
-            sdk_ver: "22.03.2"
+            sdk_ver: "22.03.0"
             luci_ver: "git-22.103.65959-d9db1b0"
-            sdk_base_url: "https://archive.openwrt.org/releases/22.03.2/targets/x86/64"
+            sdk_base_url: "https://archive.openwrt.org/releases/22.03.0/targets/x86/64"
 
     steps:
       - name: Checkout repository
@@ -214,68 +214,68 @@ jobs:
           # --------------------------------------------
           - pkg_ext: "ipk"
             platform: amd64
-            sdk_ver: "22.03.2"
-            sdk_base_url: "https://archive.openwrt.org/releases/22.03.2/targets/x86/64"
+            sdk_ver: "22.03.0"
+            sdk_base_url: "https://archive.openwrt.org/releases/22.03.0/targets/x86/64"
           - pkg_ext: "ipk"
             platform: aarch64_generic
-            sdk_ver: "22.03.2"
-            sdk_base_url: "https://archive.openwrt.org/releases/22.03.2/targets/rockchip/armv8"
+            sdk_ver: "22.03.0"
+            sdk_base_url: "https://archive.openwrt.org/releases/22.03.0/targets/rockchip/armv8"
           - pkg_ext: "ipk"
             platform: aarch64_cortex-a53
-            sdk_ver: "22.03.2"
-            sdk_base_url: "https://archive.openwrt.org/releases/22.03.2/targets/mvebu/cortexa53"
+            sdk_ver: "22.03.0"
+            sdk_base_url: "https://archive.openwrt.org/releases/22.03.0/targets/mvebu/cortexa53"
           - pkg_ext: "ipk"
             platform: aarch64_cortex-a72
-            sdk_ver: "22.03.2"
-            sdk_base_url: "https://archive.openwrt.org/releases/22.03.2/targets/mvebu/cortexa72"
+            sdk_ver: "22.03.0"
+            sdk_base_url: "https://archive.openwrt.org/releases/22.03.0/targets/mvebu/cortexa72"
           - pkg_ext: "ipk"
             platform: arm_cortex-a5_vfpv4
-            sdk_ver: "22.03.2"
-            sdk_base_url: "https://archive.openwrt.org/releases/22.03.2/targets/at91/sama5"
+            sdk_ver: "22.03.0"
+            sdk_base_url: "https://archive.openwrt.org/releases/22.03.0/targets/at91/sama5"
           - pkg_ext: "ipk"
             platform: arm_cortex-a7
-            sdk_ver: "22.03.2"
-            sdk_base_url: "https://archive.openwrt.org/releases/22.03.2/targets/mediatek/mt7629"
+            sdk_ver: "22.03.0"
+            sdk_base_url: "https://archive.openwrt.org/releases/22.03.0/targets/mediatek/mt7629"
           - pkg_ext: "ipk"
             platform: arm_cortex-a7_neon-vfpv4
-            sdk_ver: "22.03.2"
-            sdk_base_url: "https://archive.openwrt.org/releases/22.03.2/targets/sunxi/cortexa7"
+            sdk_ver: "22.03.0"
+            sdk_base_url: "https://archive.openwrt.org/releases/22.03.0/targets/sunxi/cortexa7"
           - pkg_ext: "ipk"
             platform: arm_cortex-a8_vfpv3
-            sdk_ver: "22.03.2"
-            sdk_base_url: "https://archive.openwrt.org/releases/22.03.2/targets/sunxi/cortexa8"
+            sdk_ver: "22.03.0"
+            sdk_base_url: "https://archive.openwrt.org/releases/22.03.0/targets/sunxi/cortexa8"
           - pkg_ext: "ipk"
             platform: arm_cortex-a9
-            sdk_ver: "22.03.2"
-            sdk_base_url: "https://archive.openwrt.org/releases/22.03.2/targets/bcm53xx/generic"
+            sdk_ver: "22.03.0"
+            sdk_base_url: "https://archive.openwrt.org/releases/22.03.0/targets/bcm53xx/generic"
           - pkg_ext: "ipk"
             platform: arm_cortex-a9_neon
-            sdk_ver: "22.03.2"
-            sdk_base_url: "https://archive.openwrt.org/releases/22.03.2/targets/zynq/generic"
+            sdk_ver: "22.03.0"
+            sdk_base_url: "https://archive.openwrt.org/releases/22.03.0/targets/zynq/generic"
           - pkg_ext: "ipk"
             platform: arm_cortex-a9_vfpv3-d16
-            sdk_ver: "22.03.2"
-            sdk_base_url: "https://archive.openwrt.org/releases/22.03.2/targets/mvebu/cortexa9"
+            sdk_ver: "22.03.0"
+            sdk_base_url: "https://archive.openwrt.org/releases/22.03.0/targets/mvebu/cortexa9"
           - pkg_ext: "ipk"
             platform: arm_cortex-a15_neon-vfpv4
-            sdk_ver: "22.03.2"
-            sdk_base_url: "https://archive.openwrt.org/releases/22.03.2/targets/ipq806x/generic"
+            sdk_ver: "22.03.0"
+            sdk_base_url: "https://archive.openwrt.org/releases/22.03.0/targets/ipq806x/generic"
           - pkg_ext: "ipk"
             platform: mips_mips32
-            sdk_ver: "22.03.2"
-            sdk_base_url: "https://archive.openwrt.org/releases/22.03.2/targets/bcm53xx/generic"
+            sdk_ver: "22.03.0"
+            sdk_base_url: "https://archive.openwrt.org/releases/22.03.0/targets/bcm53xx/generic"
           - pkg_ext: "ipk"
             platform: mipsel_24kc
-            sdk_ver: "22.03.2"
-            sdk_base_url: "https://archive.openwrt.org/releases/22.03.2/targets/ramips/rt288x"
+            sdk_ver: "22.03.0"
+            sdk_base_url: "https://archive.openwrt.org/releases/22.03.0/targets/ramips/rt288x"
           - pkg_ext: "ipk"
             platform: mipsel_74kc
-            sdk_ver: "22.03.2"
-            sdk_base_url: "https://archive.openwrt.org/releases/22.03.2/targets/ramips/rt3883"
+            sdk_ver: "22.03.0"
+            sdk_base_url: "https://archive.openwrt.org/releases/22.03.0/targets/ramips/rt3883"
           - pkg_ext: "ipk"
             platform: mipsel_mips32
-            sdk_ver: "22.03.2"
-            sdk_base_url: "https://archive.openwrt.org/releases/22.03.2/targets/bcm47xx/generic"
+            sdk_ver: "22.03.0"
+            sdk_base_url: "https://archive.openwrt.org/releases/22.03.0/targets/bcm47xx/generic"
 
     steps:
       - name: Checkout repository
